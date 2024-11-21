@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  mongo:
+    image: mongo:latest
+    container_name: mongo-ssl
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password
+    volumes:
+      - ./ssl:/etc/ssl/mongo:ro
+    command: >
+      --tlsMode requireTLS
+      --tlsCertificateKeyFile /etc/ssl/mongo/server.pem
+      --tlsCAFile /etc/ssl/mongo/server.pem
+      --verbose
